@@ -183,3 +183,7 @@ logs/
 
 data/
 *.db
+
+htmlcov/
+.coverage
+.pytest_cache/
