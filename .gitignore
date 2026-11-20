@@ -187,3 +187,4 @@ data/
 htmlcov/
 .coverage
 .pytest_cache/
+cookies*.txt
