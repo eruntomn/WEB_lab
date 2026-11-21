@@ -1,6 +1,4 @@
 class AppError(Exception):
-    """Базовая доменная ошибка. HTTP-статусов здесь нет: их назначает слой handlers."""
-
     code = 'INTERNAL_ERROR'
 
     def __init__(self, message, details=None, code=None):

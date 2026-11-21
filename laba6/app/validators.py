@@ -11,7 +11,6 @@ PASSWORD_MIN, PASSWORD_MAX = 8, 128
 
 
 def _get_string(data, field, errors, min_len, max_len, strip=True):
-    """Проверяет строковое поле. Отличает: нет поля / null / не строка / пустая строка."""
     if field not in data:
         errors[field] = 'Field is required'
         return None
@@ -36,7 +35,6 @@ def _get_string(data, field, errors, min_len, max_len, strip=True):
 
 
 def validate_user_payload(data, with_password):
-    """Проверка формата тела запроса. Возвращает очищенные данные или бросает ValidationError."""
     if not isinstance(data, dict):
         raise ValidationError('Request body must be a JSON object')
 
@@ -106,7 +104,6 @@ def _parse_int(args, name, default, minimum, maximum, errors):
 
 
 def parse_pagination(args):
-    """Параметры страницы списка: page >= 1, limit от 1 до 100."""
     errors = {}
     page = _parse_int(args, 'page', 1, 1, 100000, errors)
     limit = _parse_int(args, 'limit', 10, 1, 100, errors)
@@ -116,7 +113,6 @@ def parse_pagination(args):
 
 
 def _get_optional_text(data, field, errors, max_len):
-    """Необязательная строка: нет поля, null или пустая строка = значение не задано."""
     if field not in data or data[field] is None:
         return None
     value = data[field]

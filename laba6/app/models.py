@@ -24,7 +24,6 @@ class User:
         )
 
     def to_public_dict(self):
-        """Данные для самого пользователя (без хэша пароля)."""
         return {
             'id': self.id,
             'name': self.name,
@@ -37,9 +36,9 @@ class User:
 
 @dataclass
 class Session:
-    id: str  # SHA-256 хэш токена, сам токен в базе не хранится
+    id: str
     user_id: int
-    created_at: int  # время в секундах (unix time)
+    created_at: int
     expires_at: int
 
     @classmethod

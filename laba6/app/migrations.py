@@ -12,8 +12,6 @@ class MigrationError(Exception):
 
 
 class Migrator:
-    """Простой инструмент миграций: версионирование схемы, применение и откат."""
-
     def __init__(self, db_path, directory):
         self.db_path = db_path
         self.directory = directory
@@ -32,7 +30,6 @@ class Migrator:
         return conn
 
     def available(self):
-        """Миграции из папки: {версия: {'name': ..., 'up': путь, 'down': путь}}."""
         found = {}
         for filename in sorted(os.listdir(self.directory)):
             match = FILE_RE.match(filename)
@@ -61,7 +58,6 @@ class Migrator:
         ]
 
     def up(self):
-        """Применяет все ещё не применённые миграции по порядку."""
         conn = self._connect()
         done = []
         try:
@@ -88,7 +84,6 @@ class Migrator:
         return done
 
     def down(self):
-        """Откатывает последнюю применённую миграцию. Возвращает её имя или None."""
         conn = self._connect()
         try:
             applied = self._applied_versions(conn)

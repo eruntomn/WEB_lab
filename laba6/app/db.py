@@ -3,9 +3,6 @@ import sqlite3
 
 
 class Database:
-    """Обёртка над драйвером sqlite3. Только параметризованные запросы.
-    Схему создают миграции (migrate.py), а не само приложение."""
-
     def __init__(self, path):
         self.path = path
         directory = os.path.dirname(path)
@@ -15,13 +12,10 @@ class Database:
     def _connect(self):
         conn = sqlite3.connect(self.path)
         conn.row_factory = sqlite3.Row
-        conn.execute(
-            'PRAGMA foreign_keys = ON'
-        )  # без этого SQLite не проверяет внешние ключи и каскады
+        conn.execute('PRAGMA foreign_keys = ON')
         return conn
 
     def execute(self, sql, params=()):
-        """INSERT/UPDATE/DELETE. Возвращает (lastrowid, rowcount)."""
         conn = self._connect()
         try:
             with conn:  # commit при успехе, rollback при ошибке

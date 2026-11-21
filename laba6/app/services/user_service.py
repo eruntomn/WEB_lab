@@ -7,8 +7,6 @@ from app.models import User
 
 
 class UserService:
-    """Регистрация и удаление пользователей (бизнес-правила)."""
-
     def __init__(self, user_repo, email_service, blocked_domains, log):
         self.user_repo = user_repo
         self.email_service = email_service
@@ -39,9 +37,7 @@ class UserService:
 
     def delete_user(self, user_id):
         self.get_user(user_id)
-        self.user_repo.delete(
-            user_id
-        )  # сессии и профиль удалит сама БД (ON DELETE CASCADE)
+        self.user_repo.delete(user_id)
         self.log.info('User deleted: id=%s', user_id)
 
     def _check_email_rules(self, email):

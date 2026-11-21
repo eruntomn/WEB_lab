@@ -1,6 +1,4 @@
 class EmailService:
-    """Отправка писем (побочный эффект). Здесь имитация: запись в лог."""
-
     def __init__(self, log):
         self.log = log
 

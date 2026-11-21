@@ -4,8 +4,6 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class Settings:
-    """Все настройки приложения. Берутся из переменных окружения."""
-
     host: str
     port: int
     db_path: str

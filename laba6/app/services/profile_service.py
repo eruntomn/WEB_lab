@@ -5,8 +5,6 @@ from app.models import Profile
 
 
 class ProfileService:
-    """Профили пользователей. Менять профиль может только его владелец."""
-
     def __init__(self, user_repo, profile_repo, log):
         self.user_repo = user_repo
         self.profile_repo = profile_repo

@@ -2,8 +2,6 @@ from app.models import User
 
 
 class UserRepository:
-    """Доступ к таблице users: только SQL, все запросы параметризованные."""
-
     def __init__(self, db):
         self.db = db
 

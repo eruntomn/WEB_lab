@@ -15,7 +15,6 @@ from app.errors import (
     ValidationError,
 )
 
-# Соответствие доменных ошибок HTTP-статусам (HTTP-детали живут только в handlers)
 HTTP_STATUS = {
     ValidationError: (400, 'Validation error'),
     InvalidJsonError: (400, 'Bad request'),
@@ -39,8 +38,6 @@ def error_response(status, error, code, message, details=None):
 
 
 def register_common(app, log):
-    """Идентификатор запроса, логирование запросов и обработчики ошибок."""
-
     @app.before_request
     def start_request():
         g.request_id = uuid.uuid4().hex[:8]

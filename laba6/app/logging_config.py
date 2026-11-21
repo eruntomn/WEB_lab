@@ -6,8 +6,6 @@ from flask import g, has_request_context
 
 
 class RequestIdFilter(logging.Filter):
-    """Добавляет в каждую строку лога идентификатор запроса."""
-
     def filter(self, record):
         record.request_id = (
             g.get('request_id', '-') if has_request_context() else '-'

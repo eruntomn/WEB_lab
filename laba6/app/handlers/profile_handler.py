@@ -5,7 +5,6 @@ from app.validators import validate_profile_payload
 
 
 def profile_to_dict(user, profile):
-    """Публичные данные профиля (email не показываем)."""
     return {
         'user_id': user.id,
         'name': user.name,
@@ -27,9 +26,7 @@ def create_profile_blueprint(profile_service, login_required):
     @bp.put('/users/<int:user_id>/profile')
     @login_required
     def put_profile(user_id):
-        profile_service.ensure_owner(
-            g.current_user.id, user_id
-        )  # 403 раньше проверки данных
+        profile_service.ensure_owner(g.current_user.id, user_id)
         data = validate_profile_payload(get_json_body())
         user, profile = profile_service.save_profile(user_id, **data)
         return jsonify(profile_to_dict(user, profile))
