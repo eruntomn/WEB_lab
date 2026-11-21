@@ -1,0 +1,2 @@
+DROP INDEX idx_users_active_created;
+DROP INDEX idx_users_email_lower;

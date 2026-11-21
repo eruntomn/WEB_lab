@@ -1,0 +1,40 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: web-lab7-db
+    command:
+      - postgres
+      - -c
+      - shared_preload_libraries=pg_stat_statements
+      - -c
+      - pg_stat_statements.track=all
+      - -c
+      - log_min_duration_statement=20
+    environment:
+      POSTGRES_USER: webprog
+      POSTGRES_PASSWORD: webprog123
+      POSTGRES_DB: webprog
+    ports:
+      - "5433:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U webprog -d webprog"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  api:
+    build: .
+    container_name: web-lab7-api
+    command: sh -c "python migrate.py up && python run.py"
+    environment:
+      DATABASE_URL: postgresql://webprog:webprog123@db:5432/webprog
+    ports:
+      - "5000:5000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pg_data:
