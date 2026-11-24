@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>XSS demo: VULNERABLE</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <main>
+    <h1>Profile viewer (vulnerable: innerHTML)</h1>
+    <p>Sign in on the <a href="/">main page</a> first.</p>
+    <input id="user-id" type="number" value="1" min="1">
+    <button id="show-btn">Show profile</button>
+    <div id="profile" class="box"></div>
+  </main>
+  <script src="/js/xss-vulnerable.js"></script>
+</body>
+</html>

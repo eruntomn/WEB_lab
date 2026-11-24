@@ -1,0 +1,12 @@
+.venv
+.git
+__pycache__
+*.pyc
+data
+logs
+cookies*.txt
+nginx
+static
+cors_demo
+*.key
+*.crt

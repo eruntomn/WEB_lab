@@ -188,3 +188,6 @@ htmlcov/
 .coverage
 .pytest_cache/
 cookies*.txt
+
+nginx/certs/
+cookies*.txt

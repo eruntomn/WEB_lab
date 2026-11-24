@@ -1,0 +1,1 @@
+{"bio": "<img src=x onerror=\"alert('XSS: cookies = [' + document.cookie + ']')\">", "city": "Moscow"}

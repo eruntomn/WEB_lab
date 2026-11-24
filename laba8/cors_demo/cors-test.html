@@ -1,0 +1,12 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>CORS test</title>
+<h1>CORS test from <span id="origin"></span></h1>
+<pre id="result">loading...</pre>
+<script>
+  document.getElementById("origin").textContent = location.origin;
+  fetch("https://localhost:8443/api/health")
+    .then((r) => r.json())
+    .then((d) => { document.getElementById("result").textContent = "ALLOWED: " + JSON.stringify(d, null, 2); })
+    .catch((e) => { document.getElementById("result").textContent = "BLOCKED by CORS (see browser console): " + e; });
+</script>

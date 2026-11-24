@@ -1,0 +1,6 @@
+body { font-family: "Segoe UI", sans-serif; background: #f4f6f8; color: #2c3e50; margin: 0; }
+main { max-width: 640px; margin: 40px auto; padding: 0 16px; }
+section, .box { background: #fff; border: 1px solid #dde3e8; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+input, textarea { width: 100%; box-sizing: border-box; margin-bottom: 8px; padding: 8px; }
+button { padding: 8px 14px; margin-right: 8px; cursor: pointer; }
+pre { background: #2c3e50; color: #ecf0f1; padding: 12px; border-radius: 8px; overflow-x: auto; }

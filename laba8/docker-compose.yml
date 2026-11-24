@@ -1,0 +1,67 @@
+services:
+  migrate:
+    build: .
+    image: web-lab8-api
+    command: python migrate.py up
+    environment:
+      DB_PATH: /app/data/app.db
+    volumes:
+      - db_data:/app/data
+
+  api1:
+    build: .
+    image: web-lab8-api
+    container_name: web-lab8-api1
+    command: python run.py
+    environment:
+      DB_PATH: /app/data/app.db
+      INSTANCE_NAME: api1
+      COOKIE_SECURE: "1"
+      COOKIE_SAMESITE: Strict
+      ALLOWED_ORIGINS: http://localhost:8081
+      ENABLE_DEBUG_ROUTES: "1"
+    volumes:
+      - db_data:/app/data
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+  api2:
+    build: .
+    image: web-lab8-api
+    container_name: web-lab8-api2
+    command: python run.py
+    environment:
+      DB_PATH: /app/data/app.db
+      INSTANCE_NAME: api2
+      COOKIE_SECURE: "1"
+      COOKIE_SAMESITE: Strict
+      ALLOWED_ORIGINS: http://localhost:8081
+      ENABLE_DEBUG_ROUTES: "1"
+    volumes:
+      - db_data:/app/data
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    container_name: web-lab8-nginx
+    ports:
+      - "8080:80"
+      - "8443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/security-headers.conf:/etc/nginx/snippets/security-headers.conf:ro
+      - ./nginx/proxy-headers.conf:/etc/nginx/snippets/proxy-headers.conf:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+      - ./static:/var/www/static:ro
+    depends_on:
+      - api1
+      - api2
+    restart: unless-stopped
+
+volumes:
+  db_data:
